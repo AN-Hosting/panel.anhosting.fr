@@ -8,8 +8,10 @@ import Features from '@feature/Features';
 import Console from '@/components/server/console/Console';
 import StatGraphs from '@/components/server/console/StatGraphs';
 import PowerButtons from '@/components/server/console/PowerButtons';
+import MoreButtons from '@/components/server/console/MoreButtons';
 import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';
 import { Alert } from '@/components/elements/alert';
+import style from './style.module.css';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 
@@ -41,6 +43,10 @@ const ServerConsoleContainer = () => {
                     <Can action={['control.start', 'control.stop', 'control.restart']} matchAny>
                         <PowerButtons className={'flex sm:justify-end space-x-2'} />
                     </Can>
+                    <br />
+                    <div className={'col-span-4 sm:col-span-3 lg:col-span-3 self-end'}>
+                        <MoreButtons className={style.buttons_layout} />
+                    </div>
                 </div>
             </div>
             <div className={'grid grid-cols-4 gap-2 sm:gap-4 mb-4'}>
