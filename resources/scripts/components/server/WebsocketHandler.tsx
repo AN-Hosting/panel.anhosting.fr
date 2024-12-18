@@ -48,13 +48,13 @@ export default () => {
         socket.on('token expired', () => updateToken(uuid, socket));
         socket.on('jwt error', (error: string) => {
             setConnectionState(false);
-            console.warn('JWT validation error from wings:', error);
+            console.warn('Erreur de validation JWT depuis wings:', error);
 
             if (reconnectErrors.find((v) => error.toLowerCase().indexOf(v) >= 0)) {
                 updateToken(uuid, socket);
             } else {
                 setError(
-                    'There was an error validating the credentials provided for the websocket. Please refresh the page.'
+                    'Une erreur est survenue lors de la validation des identifiants pour le websocket. Veuillez rafraîchir la page.'
                 );
             }
         });
@@ -112,7 +112,7 @@ export default () => {
                         <>
                             <Spinner size={'small'} />
                             <p css={tw`ml-2 text-sm text-red-100`}>
-                                We&apos;re having some trouble connecting to your server, please wait...
+                                Nous rencontrons des difficultés pour nous connecter à votre serveur, veuillez patienter...
                             </p>
                         </>
                     ) : (

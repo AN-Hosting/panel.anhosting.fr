@@ -49,11 +49,11 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock className='content-dashboard' title={'Dashboard'} showFlashKey={'dashboard'}>
+        <PageContentBlock className='content-dashboard' title={'Tableau de bord'} showFlashKey={'dashboard'}>
             {rootAdmin && (
                 <div css={tw`mb-2 flex justify-end items-center`}>
                     <p css={tw`uppercase text-xs text-neutral-400 mr-2`}>
-                        {showOnlyAdmin ? "Showing others' servers" : 'Showing your servers'}
+                        {showOnlyAdmin ? "Affichage des serveurs des autres" : 'Affichage de vos serveurs'}
                     </p>
                     <Switch
                         name={'show_all_servers'}
@@ -74,8 +74,8 @@ export default () => {
                         ) : (
                             <p css={tw`text-center text-sm text-neutral-400`}>
                                 {showOnlyAdmin
-                                    ? 'There are no other servers to display.'
-                                    : 'There are no servers associated with your account.'}
+                                    ? "Il n'y a pas d'autres serveurs à afficher."
+                                    : "Il n'y a aucun serveur associé à votre compte."}
                             </p>
                         )
                     }

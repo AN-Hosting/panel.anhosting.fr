@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCogs, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCogs, faHome, faSignOutAlt, faBook, faGlobe, faStore } from '@fortawesome/free-solid-svg-icons';
+import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
@@ -12,6 +13,7 @@ import http from '@/api/http';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import Tooltip from '@/components/elements/tooltip/Tooltip';
 import Avatar from '@/components/Avatar';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const RightNavigation = styled.div`
     & > a,
@@ -88,26 +90,50 @@ export default () => {
 
                 <RightNavigation className={'flex h-full items-center justify-center'}>
                     <SearchContainer />
-                    <Tooltip placement={'bottom'} content={'Dashboard'}>
+                    {/* Site Web */}
+                    <Tooltip placement={'bottom'} content={'Site Web'}>
+                        <a href={'https://anhosting.fr'} target="_blank" rel="noreferrer">
+                            <FontAwesomeIcon icon={faGlobe as IconProp} />
+                        </a>
+                    </Tooltip>
+                    {/* Discord */}
+                    <Tooltip placement={'bottom'} content={'Discord'}>
+                        <a href={'https://discord.gg/votre-serveur'} target="_blank" rel="noreferrer">
+                            <FontAwesomeIcon icon={faDiscord as IconProp} />
+                        </a>
+                    </Tooltip>
+                    {/* Documentation */}
+                    <Tooltip placement={'bottom'} content={'Documentation'}>
+                        <a href={'https://docs.anhosting.fr'} target="_blank" rel="noreferrer">
+                            <FontAwesomeIcon icon={faBook} />
+                        </a>
+                    </Tooltip>
+                    {/* Panel Client */}
+                    <Tooltip placement={'bottom'} content={'Panel Client'}>
+                        <a href={'https://client.anhosting.fr'} target="_blank" rel="noreferrer">
+                            <FontAwesomeIcon icon={faStore} />
+                        </a>
+                    </Tooltip>
+                    <Tooltip placement={'bottom'} content={'Tableau de bord'}>
                         <NavLink to={'/'} exact>
-                            <FontAwesomeIcon icon={faLayerGroup} />
+                            <FontAwesomeIcon icon={faHome} />
                         </NavLink>
                     </Tooltip>
                     {rootAdmin && (
-                        <Tooltip placement={'bottom'} content={'Admin'}>
+                        <Tooltip placement={'bottom'} content={'Administration'}>
                             <a href={'/admin'} rel={'noreferrer'}>
                                 <FontAwesomeIcon icon={faCogs} />
                             </a>
                         </Tooltip>
                     )}
-                    <Tooltip placement={'bottom'} content={'Account Settings'}>
+                    <Tooltip placement={'bottom'} content={'Paramètres du compte'}>
                         <NavLink to={'/account'}>
                             <span className={'flex items-center w-5 h-5'}>
                                 <Avatar.User />
                             </span>
                         </NavLink>
                     </Tooltip>
-                    <Tooltip placement={'bottom'} content={'Sign Out'}>
+                    <Tooltip placement={'bottom'} content={'Déconnexion'}>
                         <button onClick={onTriggerLogout}>
                             <FontAwesomeIcon icon={faSignOutAlt} />
                         </button>
