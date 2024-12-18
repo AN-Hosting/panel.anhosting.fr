@@ -165,6 +165,9 @@ export default ({ database, className }: Props) => {
                     <p css={tw`mt-1 text-2xs text-neutral-500 uppercase select-none`}>Username</p>
                 </div>
                 <div css={tw`ml-8`}>
+                    <Button color={'primary'} isSecondary css={tw`mr-2`} onClick={() => window.open("https://phpmyadmin.anhosting.fr", '_blank', 'noopener,noreferrer')}>
+                        <FontAwesomeIcon icon={faDatabase} fixedWidth />
+                    </Button>
                     <Button isSecondary css={tw`mr-2`} onClick={() => setConnectionVisible(true)}>
                         <FontAwesomeIcon icon={faEye} fixedWidth />
                     </Button>

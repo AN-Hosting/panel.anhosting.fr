@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import getFileContents from '@/api/server/files/getFileContents';
 import { httpErrorToHuman } from '@/api/http';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
@@ -10,7 +10,6 @@ import Can from '@/components/elements/Can';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 import { ServerError } from '@/components/elements/ScreenBlock';
-import tw from 'twin.macro';
 import Button from '@/components/elements/Button';
 import Select from '@/components/elements/Select';
 import modes from '@/modes';
@@ -19,7 +18,59 @@ import { ServerContext } from '@/state/server';
 import ErrorBoundary from '@/components/elements/ErrorBoundary';
 import { encodePathSegments, hashToPath } from '@/helpers';
 import { dirname } from 'path';
+import { Editor } from '@monaco-editor/react';
 import CodemirrorEditor from '@/components/elements/CodemirrorEditor';
+import tw from 'twin.macro';
+
+const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+const getLanguageFromFilename = (filename: string) => {
+    const extension = filename.split('.').pop();
+    switch (extension) {
+        case 'js':
+            return 'javascript';
+        case 'ts':
+            return 'typescript';
+        case 'py':
+            return 'python';
+        case 'html':
+            return 'html';
+        case 'css':
+            return 'css';
+        case 'json':
+            return 'json';
+        case 'md':
+            return 'markdown';
+        case 'xml':
+            return 'xml';
+        case 'java':
+            return 'java';
+        case 'cpp':
+        case 'h':
+            return 'cpp';
+        case 'cs':
+            return 'csharp';
+        case 'go':
+            return 'go';
+        case 'php':
+            return 'php';
+        case 'rb':
+            return 'ruby';
+        case 'rs':
+            return 'rust';
+        case 'sh':
+            return 'shell';
+        case 'sql':
+            return 'sql';
+        case 'yaml':
+        case 'yml':
+            return 'yaml';
+        default:
+            return 'plaintext';
+    }
+};
 
 export default () => {
     const [error, setError] = useState('');
@@ -28,9 +79,9 @@ export default () => {
     const [content, setContent] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [mode, setMode] = useState('text/plain');
-
     const history = useHistory();
     const { hash } = useLocation();
+    const editorRef = useRef<any>(null);
 
     const id = ServerContext.useStoreState((state) => state.server.data!.id);
     const uuid = ServerContext.useStoreState((state) => state.server.data!.uuid);
@@ -56,20 +107,24 @@ export default () => {
     }, [action, uuid, hash]);
 
     const save = (name?: string) => {
-        if (!fetchFileContent) {
+        if (!fetchFileContent && !editorRef.current) {
             return;
         }
 
         setLoading(true);
         clearFlashes('files:view');
-        fetchFileContent()
+        
+        const savePromise = isMobile()
+            ? fetchFileContent!()
+            : Promise.resolve(editorRef.current.getValue());
+
+        savePromise
             .then((content) => saveFileContents(uuid, name || hashToPath(hash), content))
             .then(() => {
                 if (name) {
                     history.push(`/server/${id}/files/edit#/${encodePathSegments(name)}`);
                     return;
                 }
-
                 return Promise.resolve();
             })
             .catch((error) => {
@@ -112,22 +167,34 @@ export default () => {
             />
             <div css={tw`relative`}>
                 <SpinnerOverlay visible={loading} />
-                <CodemirrorEditor
-                    mode={mode}
-                    filename={hash.replace(/^#/, '')}
-                    onModeChanged={setMode}
-                    initialContent={content}
-                    fetchContent={(value) => {
-                        fetchFileContent = value;
-                    }}
-                    onContentSaved={() => {
-                        if (action !== 'edit') {
-                            setModalVisible(true);
-                        } else {
-                            save();
-                        }
-                    }}
-                />
+                {isMobile() ? (
+                    <CodemirrorEditor
+                        mode={mode}
+                        filename={hash.replace(/^#/, '')}
+                        onModeChanged={setMode}
+                        initialContent={content}
+                        fetchContent={(value) => {
+                            fetchFileContent = value;
+                        }}
+                        onContentSaved={() => {
+                            if (action !== 'edit') {
+                                setModalVisible(true);
+                            } else {
+                                save();
+                            }
+                        }}
+                    />
+                ) : (
+                    <Editor
+                        height="75vh"
+                        theme="vs-dark"
+                        language={getLanguageFromFilename(hash.replace(/^#/, ''))}
+                        value={content}
+                        onMount={(editor) => {
+                            editorRef.current = editor;
+                        }}
+                    />
+                )}
             </div>
             <div css={tw`flex justify-end mt-4`}>
                 <div css={tw`flex-1 sm:flex-none rounded bg-neutral-900 mr-4`}>
