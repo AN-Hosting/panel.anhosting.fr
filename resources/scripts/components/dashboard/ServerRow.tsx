@@ -10,6 +10,7 @@ import GreyRowBox from '@/components/elements/GreyRowBox';
 import Spinner from '@/components/elements/Spinner';
 import styled from 'styled-components/macro';
 import isEqual from 'react-fast-compare';
+import { ServerContext } from '@/state/server';
 
 // Determines if the current value is in an alarm threshold so we can show it in red rather
 // than the more faded default style.
@@ -88,6 +89,9 @@ export default ({ server, className }: { server: Server; className?: string }) =
     const memoryLimit = server.limits.memory !== 0 ? bytesToString(mbToBytes(server.limits.memory)) : 'Unlimited';
     const cpuLimit = server.limits.cpu !== 0 ? server.limits.cpu + ' %' : 'Unlimited';
 
+    const serverHostname = server.variables?.find((v) => v.envVariable === 'SERVER_HOSTNAME')?.serverValue || server.name;
+    const maxPlayers = server.variables?.find((v) => v.envVariable === 'MAX_PLAYERS')?.serverValue || '0';
+
     return (
         <StatusIndicatorBox as={Link} to={`/server/${server.id}`} className={className} $status={stats?.status}>
             <div css={tw`flex items-center col-span-12 sm:col-span-5 lg:col-span-6`}>
@@ -95,7 +99,9 @@ export default ({ server, className }: { server: Server; className?: string }) =
                     <FontAwesomeIcon icon={faServer} />
                 </div>
                 <div>
-                    <p css={tw`text-lg break-words`}>{server.name}</p>
+                    <p css={tw`text-lg break-words`}>
+                        {server.internalId} - {serverHostname} - {maxPlayers} Slots
+                    </p>
                     {!!server.description && (
                         <p css={tw`text-sm text-neutral-300 break-words line-clamp-2`}>{server.description}</p>
                     )}

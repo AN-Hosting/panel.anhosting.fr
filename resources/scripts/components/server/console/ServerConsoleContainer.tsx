@@ -12,6 +12,7 @@ import MoreButtons from '@/components/server/console/MoreButtons';
 import ServerDetailsBlock from '@/components/server/console/ServerDetailsBlock';
 import { Alert } from '@/components/elements/alert';
 import style from './style.module.css';
+import { useStoreState } from 'easy-peasy';
 
 export type PowerAction = 'start' | 'stop' | 'restart' | 'kill';
 
@@ -22,6 +23,10 @@ const ServerConsoleContainer = () => {
     const isTransferring = ServerContext.useStoreState((state) => state.server.data!.isTransferring);
     const eggFeatures = ServerContext.useStoreState((state) => state.server.data!.eggFeatures, isEqual);
     const isNodeUnderMaintenance = ServerContext.useStoreState((state) => state.server.data!.isNodeUnderMaintenance);
+    const variables = ServerContext.useStoreState((state) => state.server.data!.variables);
+    const serverHostname = variables.find((v) => v.envVariable === 'SERVER_HOSTNAME')?.serverValue || name;
+    const internalId = ServerContext.useStoreState((state) => state.server.data!.internalId);
+    const maxPlayers = variables.find((v) => v.envVariable === 'MAX_PLAYERS')?.serverValue || '0';
 
     return (
         <ServerContentBlock title={'Console'}>
@@ -36,7 +41,11 @@ const ServerConsoleContainer = () => {
             )}
             <div className={'grid grid-cols-4 gap-4 mb-4'}>
                 <div className={'hidden sm:block sm:col-span-2 lg:col-span-3 pr-4'}>
-                    <h1 className={'font-header text-2xl text-gray-50 leading-relaxed line-clamp-1'}>{name}</h1>
+                    <div className={'flex items-center justify-between'}>
+                        <h1 className={'font-header text-2xl text-gray-50 leading-relaxed line-clamp-1'}>
+                            {internalId} - {serverHostname} - {maxPlayers} Slots
+                        </h1>
+                    </div>
                     <p className={'text-sm line-clamp-2'}>{description}</p>
                 </div>
                 <div className={'col-span-4 sm:col-span-2 lg:col-span-1 self-end'}>
