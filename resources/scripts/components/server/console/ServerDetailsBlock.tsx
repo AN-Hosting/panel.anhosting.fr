@@ -103,24 +103,22 @@ const ServerDetailsBlock = ({ className }: { className?: string }) => {
                 ) : stats.uptime > 0 ? (
                     <UptimeDuration uptime={stats.uptime / 1000} />
                 ) : (
-                    capitalize(status === 'running' ? 'en cours' : 
-                              status === 'offline' ? 'hors ligne' : 
-                              status === 'starting' ? 'démarrage' : 
-                              status === 'stopping' ? 'arrêt' : status)
+                    capitalize(
+                        status === 'running' ? 'en ligne' : 
+                        status === 'offline' ? 'hors ligne' : 
+                        status === 'starting' ? 'démarrage' : 
+                        status === 'stopping' ? 'arrêt' : status
+                    )
                 )}
             </StatBlock>
-            <StatBlock icon={faMicrochip} title={'Charge CPU'} color={getBackgroundColor(stats.cpu, limits.cpu)}>
+            <StatBlock icon={faMicrochip} title={'CPU'} color={getBackgroundColor(stats.cpu, limits.cpu)}>
                 {status === 'offline' ? (
                     <span className={'text-gray-400'}>Hors ligne</span>
                 ) : (
                     <Limit limit={textLimits.cpu}>{stats.cpu.toFixed(2)}%</Limit>
                 )}
             </StatBlock>
-            <StatBlock
-                icon={faMemory}
-                title={'Mémoire'}
-                color={getBackgroundColor(stats.memory / 1024, limits.memory * 1024)}
-            >
+            <StatBlock icon={faMemory} title={'Mémoire'} color={getBackgroundColor(stats.memory / 1024, limits.memory * 1024)}>
                 {status === 'offline' ? (
                     <span className={'text-gray-400'}>Hors ligne</span>
                 ) : (

@@ -42,11 +42,11 @@ export default ({ className }: PowerButtonProps) => {
                 open={open}
                 hideCloseIcon
                 onClose={() => setOpen(false)}
-                title={'Forcibly Stop Process'}
-                confirm={'Continue'}
+                title={'Arrêt forcé du processus'}
+                confirm={'Continuer'}
                 onConfirmed={onButtonClick.bind(this, 'kill-confirmed')}
             >
-                Forcibly stopping a server can lead to data corruption.
+                L'arrêt forcé d'un serveur peut entraîner une corruption des données.
             </Dialog.Confirm>
             <Can action={'control.start'}>
                 <Button
@@ -54,12 +54,12 @@ export default ({ className }: PowerButtonProps) => {
                     disabled={status !== 'offline'}
                     onClick={onButtonClick.bind(this, 'start')}
                 >
-                    Start
+                    Démarrer
                 </Button>
             </Can>
             <Can action={'control.restart'}>
                 <Button.Text className={'flex-1'} disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
-                    Restart
+                    Redémarrer
                 </Button.Text>
             </Can>
             <Can action={'control.stop'}>
@@ -68,7 +68,7 @@ export default ({ className }: PowerButtonProps) => {
                     disabled={status === 'offline'}
                     onClick={onButtonClick.bind(this, killable ? 'kill' : 'stop')}
                 >
-                    {killable ? 'Kill' : 'Stop'}
+                    {killable ? 'Forcer l\'arrêt' : 'Arrêter'}
                 </Button.Danger>
             </Can>
         </div>

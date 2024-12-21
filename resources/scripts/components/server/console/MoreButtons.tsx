@@ -46,7 +46,6 @@ export default ({ className }: MoreButtonsProp) => {
                     TxAdmin
                 </Button.Text>
             ) : null}
-            {/* dayz status */}
             {Number(dzsaOn?.serverValue) === 1 && dzsaIp ? (
                 <Button.Text
                     className={'flex-1'}
@@ -55,19 +54,9 @@ export default ({ className }: MoreButtonsProp) => {
                         window.open(`https://dayzsalauncher.com/#/servercheck/${dzsaIp}`);
                     }}
                 >
-                    Status DZSA
+                    Statut DZSA
                 </Button.Text>
             ) : null}
-            <Can action={'database.*'}>
-                <Button.Text
-                    className={'flex-1'}
-                    onClick={() => {
-                        window.open('https://phpmyadmin.anhosting.fr');
-                    }}
-                >
-                    phpMyAdmin
-                </Button.Text>
-            </Can>
             <Can action={'file.sftp'}>
                 <Button.Text
                     className={'flex-1'}

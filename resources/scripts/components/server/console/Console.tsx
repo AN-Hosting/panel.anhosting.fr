@@ -195,9 +195,7 @@ export default () => {
     return (
         <div className={classNames(styles.terminal, 'relative')}>
             <SpinnerOverlay visible={!connected} size={'large'} />
-            <div
-                className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}
-            >
+            <div className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}>
                 <div className={'h-full'}>
                     <div id={styles.terminal} ref={ref} />
                 </div>
@@ -207,19 +205,14 @@ export default () => {
                     <input
                         className={classNames('peer', styles.command_input)}
                         type={'text'}
-                        placeholder={'Type a command...'}
-                        aria-label={'Console command input.'}
+                        placeholder={'Tapez une commande...'}
+                        aria-label={'Entrée de commande console.'}
                         disabled={!instance || !connected}
                         onKeyDown={handleCommandKeyDown}
                         autoCorrect={'off'}
                         autoCapitalize={'none'}
                     />
-                    <div
-                        className={classNames(
-                            'text-gray-100 peer-focus:text-gray-50 peer-focus:animate-pulse',
-                            styles.command_icon
-                        )}
-                    >
+                    <div className={classNames('text-gray-100 peer-focus:text-gray-50 peer-focus:animate-pulse', styles.command_icon)}>
                         <ChevronDoubleRightIcon className={'w-4 h-4'} />
                     </div>
                 </div>
