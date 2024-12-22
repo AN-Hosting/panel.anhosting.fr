@@ -157,7 +157,7 @@ export default () => {
                     <Tooltip placement={'bottom'} content="Paramètres">
                         <NavLink to={'/account'} className="px-3 py-2 flex items-center hover:bg-neutral-800 rounded-md whitespace-nowrap">
                             <span className={'flex items-center w-5 h-5'}>
-                                <Avatar.User />
+                                <Avatar.User size="20" />
                             </span>
                         </NavLink>
                     </Tooltip>
