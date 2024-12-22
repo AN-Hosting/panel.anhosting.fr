@@ -13,6 +13,49 @@ import useSWR from 'swr';
 import { PaginatedResult } from '@/api/http';
 import Pagination from '@/components/elements/Pagination';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components/macro';
+
+const DashboardHeader = styled.div`
+    ${tw`flex justify-end items-center mb-4`};
+`;
+
+const AdminSwitch = styled.div`
+    ${tw`flex items-center bg-neutral-800/90 px-4 py-2.5 rounded-lg mb-6`};
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+`;
+
+const SwitchLabel = styled.p`
+    ${tw`text-sm text-neutral-200 mr-4 font-medium tracking-wide`};
+`;
+
+const NoServersMessage = styled.div`
+    ${tw`flex flex-col items-center justify-center py-32 rounded-lg`};
+    background: rgba(17, 17, 17, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    
+    & > p {
+        ${tw`text-neutral-300 text-lg`};
+    }
+`;
+
+const ServerGrid = styled.div`
+    ${tw`grid gap-4`};
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr;
+    }
+`;
+
+const DashboardContent = styled.div`
+    ${tw`bg-neutral-900/75 backdrop-blur-md rounded-lg border border-neutral-800/50`};
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px rgba(255, 255, 255, 0.05);
+`;
 
 export default () => {
     const { search } = useLocation();
@@ -51,16 +94,18 @@ export default () => {
     return (
         <PageContentBlock className='content-dashboard' title={'Tableau de bord'} showFlashKey={'dashboard'}>
             {rootAdmin && (
-                <div css={tw`mb-2 flex justify-end items-center`}>
-                    <p css={tw`uppercase text-xs text-neutral-400 mr-2`}>
-                        {showOnlyAdmin ? "Affichage des serveurs des autres" : 'Affichage de vos serveurs'}
-                    </p>
-                    <Switch
-                        name={'show_all_servers'}
-                        defaultChecked={showOnlyAdmin}
-                        onChange={() => setShowOnlyAdmin((s) => !s)}
-                    />
-                </div>
+                <DashboardHeader>
+                    <AdminSwitch>
+                        <SwitchLabel>
+                            {showOnlyAdmin ? "Affichage des serveurs des autres" : 'Affichage de vos serveurs'}
+                        </SwitchLabel>
+                        <Switch
+                            name={'show_all_servers'}
+                            defaultChecked={showOnlyAdmin}
+                            onChange={() => setShowOnlyAdmin((s) => !s)}
+                        />
+                    </AdminSwitch>
+                </DashboardHeader>
             )}
             {!servers ? (
                 <Spinner centered size={'large'} />
@@ -68,15 +113,19 @@ export default () => {
                 <Pagination data={servers} onPageSelect={setPage}>
                     {({ items }) =>
                         items.length > 0 ? (
-                            items.map((server, index) => (
-                                <ServerRow key={server.uuid} server={server} css={index > 0 ? tw`mt-2` : undefined} />
-                            ))
+                            <ServerGrid>
+                                {items.map((server) => (
+                                    <ServerRow key={server.uuid} server={server} />
+                                ))}
+                            </ServerGrid>
                         ) : (
-                            <p css={tw`text-center text-sm text-neutral-400`}>
-                                {showOnlyAdmin
-                                    ? "Il n'y a pas d'autres serveurs à afficher."
-                                    : "Il n'y a aucun serveur associé à votre compte."}
-                            </p>
+                            <NoServersMessage>
+                                <p>
+                                    {showOnlyAdmin
+                                        ? "Il n'y a pas d'autres serveurs à afficher."
+                                        : "Il n'y a aucun serveur associé à votre compte."}
+                                </p>
+                            </NoServersMessage>
                         )
                     }
                 </Pagination>
