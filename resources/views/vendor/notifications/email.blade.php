@@ -6,178 +6,201 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <style type="text/css" rel="stylesheet" media="all">
-        /* Media Queries */
-        @media only screen and (max-width: 500px) {
+        /* Base */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f8fa;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            -webkit-text-size-adjust: none;
+            color: #2F3133;
+        }
+
+        .wrapper {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f8fa;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Header */
+        .header {
+            padding: 25px 0;
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 10px 10px 0 0;
+            border-bottom: 3px solid #edf2f7;
+        }
+
+        .header img {
+            width: 200px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        /* Body */
+        .body {
+            background-color: #ffffff;
+            border-radius: 0 0 10px 10px;
+            padding: 35px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Typography */
+        h1 {
+            margin-top: 0;
+            color: #2d3748;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 0;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.6em;
+        }
+
+        /* Buttons */
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4299e1;
+            border-radius: 5px;
+            color: #ffffff !important;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .button-green {
+            background-color: #48bb78;
+        }
+
+        .button-red {
+            background-color: #f56565;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
+            color: #718096;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        /* Responsive */
+        @media only screen and (max-width: 600px) {
+            .content {
+                width: 100% !important;
+            }
             .button {
                 width: 100% !important;
+                display: block;
             }
         }
     </style>
 </head>
 
-<?php
-
-$style = [
-    /* Layout ------------------------------ */
-
-    'body' => 'margin: 0; padding: 0; width: 100%; background-color: #F2F4F6;',
-    'email-wrapper' => 'width: 100%; margin: 0; padding: 0; background-color: #F2F4F6;',
-
-    /* Masthead ----------------------- */
-
-    'email-masthead' => 'padding: 25px 0; text-align: center;',
-    'email-masthead_name' => 'font-size: 16px; font-weight: bold; color: #2F3133; text-decoration: none; text-shadow: 0 1px 0 white;',
-
-    'email-body' => 'width: 100%; margin: 0; padding: 0; border-top: 1px solid #EDEFF2; border-bottom: 1px solid #EDEFF2; background-color: #FFF;',
-    'email-body_inner' => 'width: auto; max-width: 570px; margin: 0 auto; padding: 0;',
-    'email-body_cell' => 'padding: 35px;',
-
-    'email-footer' => 'width: auto; max-width: 570px; margin: 0 auto; padding: 0; text-align: center;',
-    'email-footer_cell' => 'color: #AEAEAE; padding: 35px; text-align: center;',
-
-    /* Body ------------------------------ */
-
-    'body_action' => 'width: 100%; margin: 30px auto; padding: 0; text-align: center;',
-    'body_sub' => 'margin-top: 25px; padding-top: 25px; border-top: 1px solid #EDEFF2;',
-
-    /* Type ------------------------------ */
-
-    'anchor' => 'color: #3869D4;',
-    'header-1' => 'margin-top: 0; color: #2F3133; font-size: 19px; font-weight: bold; text-align: left;',
-    'paragraph' => 'margin-top: 0; color: #74787E; font-size: 16px; line-height: 1.5em;',
-    'paragraph-sub' => 'margin-top: 0; color: #74787E; font-size: 12px; line-height: 1.5em;',
-    'paragraph-center' => 'text-align: center;',
-
-    /* Buttons ------------------------------ */
-
-    'button' => 'display: block; display: inline-block; width: 200px; min-height: 20px; padding: 10px;
-                 background-color: #3869D4; border-radius: 3px; color: #ffffff; font-size: 15px; line-height: 25px;
-                 text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
-
-    'button--green' => 'background-color: #22BC66;',
-    'button--red' => 'background-color: #dc4d2f;',
-    'button--blue' => 'background-color: #3869D4;',
-];
-?>
-
-<?php $fontFamily = 'font-family: Arial, \'Helvetica Neue\', Helvetica, sans-serif;'; ?>
-
-<body style="{{ $style['body'] }}">
-    <table width="100%" cellpadding="0" cellspacing="0">
+<body>
+    <table class="wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
         <tr>
-            <td style="{{ $style['email-wrapper'] }}" align="center">
-                <table width="100%" cellpadding="0" cellspacing="0">
-                    <!-- Logo -->
+            <td align="center">
+                <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                    <!-- Header -->
                     <tr>
-                        <td style="{{ $style['email-masthead'] }}">
-                            <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                                {{ config('app.name') }}
-                            </a>
+                        <td class="header">
+                            <img src="https://panel.anhosting.fr/logo.png" alt="{{ config('app.name') }}">
                         </td>
                     </tr>
 
-                    <!-- Email Body -->
+                    <!-- Body -->
                     <tr>
-                        <td style="{{ $style['email-body'] }}" width="100%">
-                            <table style="{{ $style['email-body_inner'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
+                        <td class="body">
+                            <!-- Greeting -->
+                            <h1>
+                                @if (! empty($greeting))
+                                    {{ $greeting }}
+                                @else
+                                    @if ($level == 'error')
+                                        Oups !
+                                    @else
+                                        Bonjour !
+                                    @endif
+                                @endif
+                            </h1>
+
+                            <!-- Content -->
+                            @foreach ($introLines as $line)
+                                <p>{{ $line }}</p>
+                            @endforeach
+
+                            <!-- Action Button -->
+                            @isset($actionText)
+                            <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                 <tr>
-                                    <td style="{{ $fontFamily }} {{ $style['email-body_cell'] }}">
-                                        <!-- Greeting -->
-                                        <h1 style="{{ $style['header-1'] }}">
-                                            @if (! empty($greeting))
-                                                {{ $greeting }}
-                                            @else
-                                                @if ($level == 'error')
-                                                    Whoops!
-                                                @else
-                                                    Hello!
-                                                @endif
-                                            @endif
-                                        </h1>
-
-                                        <!-- Intro -->
-                                        @foreach ($introLines as $line)
-                                            <p style="{{ $style['paragraph'] }}">
-                                                {{ $line }}
-                                            </p>
-                                        @endforeach
-
-                                        <!-- Action Button -->
-                                        @if (isset($actionText))
-                                            <table style="{{ $style['body_action'] }}" align="center" width="100%" cellpadding="0" cellspacing="0">
-                                                <tr>
-                                                    <td align="center">
-                                                        <?php
-                                                            switch ($level) {
-                                                                case 'success':
-                                                                    $actionColor = 'button--green';
-                                                                    break;
-                                                                case 'error':
-                                                                    $actionColor = 'button--red';
-                                                                    break;
-                                                                default:
-                                                                    $actionColor = 'button--blue';
-                                                            }
-                                                        ?>
-
-                                                        <a href="{{ $actionUrl }}"
-                                                            style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
-                                                            class="button"
-                                                            target="_blank">
-                                                            {{ $actionText }}
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        @endif
-
-                                        <!-- Outro -->
-                                        @foreach ($outroLines as $line)
-                                            <p style="{{ $style['paragraph'] }}">
-                                                {{ $line }}
-                                            </p>
-                                        @endforeach
-
-                                        <!-- Salutation -->
-                                        <p style="{{ $style['paragraph'] }}">
-                                            Regards,<br>{{ config('app.name') }}
-                                        </p>
-
-                                        <!-- Sub Copy -->
-                                        @if (isset($actionText))
-                                            <table style="{{ $style['body_sub'] }}">
-                                                <tr>
-                                                    <td style="{{ $fontFamily }}">
-                                                        <p style="{{ $style['paragraph-sub'] }}">
-                                                            If you’re having trouble clicking the "{{ $actionText }}" button,
-                                                            copy and paste the URL below into your web browser:
-                                                        </p>
-
-                                                        <p style="{{ $style['paragraph-sub'] }}">
-                                                            <a style="{{ $style['anchor'] }}" href="{{ $actionUrl }}" target="_blank">
-                                                                {{ $actionUrl }}
-                                                            </a>
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        @endif
+                                    <td align="center">
+                                        <a href="{{ $actionUrl }}" 
+                                           class="button {{ $level == 'success' ? 'button-green' : ($level == 'error' ? 'button-red' : '') }}"
+                                           target="_blank">
+                                            {{ $actionText }}
+                                        </a>
                                     </td>
                                 </tr>
                             </table>
+                            @endisset
+
+                            <!-- Additional Content -->
+                            @foreach ($outroLines as $line)
+                                <p>{{ $line }}</p>
+                            @endforeach
+
+                            <!-- Salutation -->
+                            <p style="text-align: center; margin-top: 30px;">
+                                Cordialement,<br>
+                                L'équipe {{ config('app.name') }}
+                            </p>
+
+                            <!-- Sub Copy -->
+                            @isset($actionText)
+                            <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                <tr>
+                                    <td>
+                                        <p style="font-size: 13px; color: #718096; text-align: center; margin-top: 30px;">
+                                            Si vous ne parvenez pas à cliquer sur le bouton "{{ $actionText }}",<br>
+                                            copiez et collez l'URL ci-dessous dans votre navigateur :<br>
+                                            <a href="{{ $actionUrl }}" style="color: #4299e1;">{{ $actionUrl }}</a>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            @endisset
                         </td>
                     </tr>
 
                     <!-- Footer -->
                     <tr>
                         <td>
-                            <table style="{{ $style['email-footer'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
+                            <table class="footer" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                 <tr>
-                                    <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}">
-                                        <p style="{{ $style['paragraph-sub'] }}">
-                                            &copy; {{ date('Y') }}
-                                            <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ config('app.name') }}</a>.
-                                            All rights reserved.
+                                    <td align="center">
+                                        <p>
+                                            © {{ date('Y') }} {{ config('app.name') }}. Tous droits réservés.
                                         </p>
                                     </td>
                                 </tr>
