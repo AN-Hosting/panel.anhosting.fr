@@ -27,7 +27,7 @@ export default ({ databaseId, onUpdate }: { databaseId: string; onUpdate: (datab
                 console.error(error);
                 addFlash({
                     type: 'error',
-                    title: 'Erreur',
+                    title: 'Error',
                     message: httpErrorToHuman(error),
                     key: 'database-connection-modal',
                 });
@@ -37,7 +37,7 @@ export default ({ databaseId, onUpdate }: { databaseId: string; onUpdate: (datab
 
     return (
         <Button isSecondary color={'primary'} css={tw`mr-2`} onClick={rotate} isLoading={loading}>
-            Changer le mot de passe
+            Rotate Password
         </Button>
     );
 };

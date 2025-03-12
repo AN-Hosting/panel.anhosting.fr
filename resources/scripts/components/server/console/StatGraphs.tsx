@@ -35,8 +35,8 @@ export default () => {
             return {
                 ...opts,
                 label: !index ? 'Network In' : 'Network Out',
-                borderColor: !index ? theme('colors.orange.400') : theme('colors.red.400'),
-                backgroundColor: hexToRgba(!index ? theme('colors.orange.700') : theme('colors.red.700'), 0.5),
+                borderColor: !index ? theme('colors.cyan.400') : theme('colors.yellow.400'),
+                backgroundColor: hexToRgba(!index ? theme('colors.cyan.700') : theme('colors.yellow.700'), 0.5),
             };
         },
     });
@@ -68,21 +68,21 @@ export default () => {
 
     return (
         <>
-            <ChartBlock title={'Charge CPU'}>
+            <ChartBlock title={'CPU Load'}>
                 <Line {...cpu.props} />
             </ChartBlock>
-            <ChartBlock title={'Mémoire'}>
+            <ChartBlock title={'Memory'}>
                 <Line {...memory.props} />
             </ChartBlock>
             <ChartBlock
-                title={'Réseau'}
+                title={'Network'}
                 legend={
                     <>
-                        <Tooltip arrow content={'Entrant'}>
-                            <CloudDownloadIcon className={'mr-2 w-4 h-4 text-orange-400'} />
+                        <Tooltip arrow content={'Inbound'}>
+                            <CloudDownloadIcon className={'mr-2 w-4 h-4 text-yellow-400'} />
                         </Tooltip>
-                        <Tooltip arrow content={'Sortant'}>
-                            <CloudUploadIcon className={'w-4 h-4 text-red-400'} />
+                        <Tooltip arrow content={'Outbound'}>
+                            <CloudUploadIcon className={'w-4 h-4 text-cyan-400'} />
                         </Tooltip>
                     </>
                 }

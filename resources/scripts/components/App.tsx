@@ -61,7 +61,7 @@ const App = () => {
             <GlobalStylesheet />
             <StoreProvider store={store}>
                 <ProgressBar />
-                <div css={tw`mx-auto w-auto`} className='nook-container'>
+                <div css={tw`mx-auto w-auto`}>
                     <Router history={history}>
                         <Switch>
                             <Route path={'/auth'}>

@@ -180,37 +180,4 @@ class NodesController extends Controller
 
         return redirect()->route('admin.nodes');
     }
-
-    public function metrics()
-    {
-        $nodes = Node::all();
-        $metrics = [];
-
-        foreach ($nodes as $node) {
-            try {
-                $systemInfo = $node->getSystemInformation();
-                $metrics[] = [
-                    'id' => $node->id,
-                    'name' => $node->name,
-                    'is_online' => $node->isOnline(),
-                    'maintenance_mode' => $node->maintenance_mode,
-                    'memory' => $systemInfo['memory'] ?? [],
-                    'cpu' => $systemInfo['cpu'] ?? [],
-                    'disk' => $systemInfo['disk'] ?? [],
-                ];
-            } catch (\Exception $e) {
-                $metrics[] = [
-                    'id' => $node->id,
-                    'name' => $node->name,
-                    'is_online' => false,
-                    'maintenance_mode' => $node->maintenance_mode,
-                    'memory' => ['used' => 0, 'total' => 0, 'used_memory_percentage' => 0],
-                    'cpu' => ['usage' => 0],
-                    'disk' => ['used_percentage' => 0],
-                ];
-            }
-        }
-
-        return response()->json($metrics);
-    }
 }

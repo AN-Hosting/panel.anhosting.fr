@@ -15,7 +15,6 @@ import { usePersistedState } from '@/plugins/usePersistedState';
 import { SocketEvent, SocketRequest } from '@/components/server/events';
 import classNames from 'classnames';
 import { ChevronDoubleRightIcon } from '@heroicons/react/solid';
-import NookConfig from '@/config';
 
 import 'xterm/css/xterm.css';
 import styles from './style.module.css';
@@ -53,7 +52,7 @@ const terminalProps: ITerminalOptions = {
 };
 
 export default () => {
-    const TERMINAL_PRELUDE = `\u001b[1m\u001b[33m${NookConfig.TERMINAL_PRELUDE} \u001b[0m`;
+    const TERMINAL_PRELUDE = '\u001b[1m\u001b[33mcontainer@pterodactyl~ \u001b[0m';
     const ref = useRef<HTMLDivElement>(null);
     const terminal = useMemo(() => new Terminal({ ...terminalProps }), []);
     const fitAddon = new FitAddon();
@@ -195,7 +194,9 @@ export default () => {
     return (
         <div className={classNames(styles.terminal, 'relative')}>
             <SpinnerOverlay visible={!connected} size={'large'} />
-            <div className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}>
+            <div
+                className={classNames(styles.container, styles.overflows_container, { 'rounded-b': !canSendCommands })}
+            >
                 <div className={'h-full'}>
                     <div id={styles.terminal} ref={ref} />
                 </div>
@@ -205,14 +206,19 @@ export default () => {
                     <input
                         className={classNames('peer', styles.command_input)}
                         type={'text'}
-                        placeholder={'Tapez une commande...'}
-                        aria-label={'Entrée de commande console.'}
+                        placeholder={'Type a command...'}
+                        aria-label={'Console command input.'}
                         disabled={!instance || !connected}
                         onKeyDown={handleCommandKeyDown}
                         autoCorrect={'off'}
                         autoCapitalize={'none'}
                     />
-                    <div className={classNames('text-gray-100 peer-focus:text-gray-50 peer-focus:animate-pulse', styles.command_icon)}>
+                    <div
+                        className={classNames(
+                            'text-gray-100 peer-focus:text-gray-50 peer-focus:animate-pulse',
+                            styles.command_icon
+                        )}
+                    >
                         <ChevronDoubleRightIcon className={'w-4 h-4'} />
                     </div>
                 </div>

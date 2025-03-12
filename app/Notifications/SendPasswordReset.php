@@ -32,9 +32,9 @@ class SendPasswordReset extends Notification implements ShouldQueue
     public function toMail(mixed $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->subject('Réinitialisation du mot de passe')
-            ->line('Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.')
-            ->action('Réinitialiser le mot de passe', url('/auth/password/reset/' . $this->token . '?email=' . urlencode($notifiable->email)))
-            ->line('Si vous n\'avez pas demandé de réinitialisation de mot de passe, aucune action n\'est requise.');
+            ->subject('Reset Password')
+            ->line('You are receiving this email because we received a password reset request for your account.')
+            ->action('Reset Password', url('/auth/password/reset/' . $this->token . '?email=' . urlencode($notifiable->email)))
+            ->line('If you did not request a password reset, no further action is required.');
     }
 }

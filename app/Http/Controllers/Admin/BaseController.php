@@ -3,7 +3,7 @@
 namespace Pterodactyl\Http\Controllers\Admin;
 
 use Illuminate\View\View;
-use Pterodactyl\Models\Node;
+use Illuminate\View\Factory as ViewFactory;
 use Pterodactyl\Http\Controllers\Controller;
 use Pterodactyl\Services\Helpers\SoftwareVersionService;
 
@@ -12,7 +12,7 @@ class BaseController extends Controller
     /**
      * BaseController constructor.
      */
-    public function __construct(private SoftwareVersionService $version)
+    public function __construct(private SoftwareVersionService $version, private ViewFactory $view)
     {
     }
 
@@ -21,11 +21,6 @@ class BaseController extends Controller
      */
     public function index(): View
     {
-        $nodes = Node::all();
-
-        return view('admin.index', [
-            'version' => $this->version,
-            'nodes' => $nodes,
-        ]);
+        return $this->view->make('admin.index', ['version' => $this->version]);
     }
 }

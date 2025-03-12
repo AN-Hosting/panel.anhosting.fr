@@ -41,10 +41,10 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
             </div>
         </Form>
         <p css={tw`text-center text-neutral-500 text-xs mt-4`}>
-            &copy; 2024 - {new Date().getFullYear()}&nbsp;
+            &copy; 2015 - {new Date().getFullYear()}&nbsp;
             <a
                 rel={'noopener nofollow noreferrer'}
-                href={'https://anhosting.fr'}
+                href={'https://pterodactyl.io'}
                 target={'_blank'}
                 css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
             >
