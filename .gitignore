@@ -34,3 +34,10 @@ resources/lang/locales.js
 /public/hot
 result
 docker-compose.yaml
+
+# BlueprintFramework
+# Ignore Blueprint internal folder and installed extensions
+.blueprint/
+*.blueprint
+!scripts/commands/misc
+wak.toml

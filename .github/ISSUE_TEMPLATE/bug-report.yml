@@ -1,11 +1,11 @@
-name: Bug Report
-description: Something isn't working quite right in the software.
-labels: [not confirmed]
+name: Bug report
+description: Something isn't working quite right.
+labels: [bug]
 body:
 - type: markdown
   attributes:
     value: |
-      Bug reports should only be used for reporting issues with how the software works. For assistance installing this software, as well as debugging issues with dependencies, please use our [Discord server](https://discord.gg/pterodactyl).
+      Bug reports should only be used for reporting issues with how the software works. For installation help or general support, please open a [discussion post](https://github.com/orgs/BlueprintFramework/discussions).
 
 - type: textarea      
   attributes:
@@ -29,59 +29,33 @@ body:
     required: true
 
 - type: input
+  id: blueprint-version
+  attributes:
+    label: Blueprint Version
+    description: Version ID of your Blueprint installation. (`blueprint -version`)
+    placeholder: beta-2024-08
+  validations:
+    required: true
+
+- type: input
   id: panel-version
   attributes:
     label: Panel Version
-    description: Version number of your Panel (latest is not a version)
-    placeholder: 1.4.0
+    description: Version number of your Panel. (latest is not a version)
+    placeholder: 1.11.7
   validations:
     required: true
 
-- type: input
-  id: wings-version
-  attributes:
-    label: Wings Version
-    description: Version number of your Wings (latest is not a version)
-    placeholder: 1.4.2
-  validations:
-    required: true
-    
-- type: input
-  id: egg-details
-  attributes:
-    label: Games and/or Eggs Affected
-    description: Please include the specific game(s) or egg(s) you are running into this bug with.
-    placeholder: Minecraft (Paper), Minecraft (Forge)
- 
-- type: input
-  id: docker-image
-  attributes:
-    label: Docker Image
-    description: The specific Docker image you are using for the game(s) above.
-    placeholder: ghcr.io/pterodactyl/yolks:java_17
-
-- type: textarea
-  id: panel-logs
-  attributes:
-    label: Error Logs
-    description: |
-      Run the following command to collect logs on your system.
-      
-      Wings: `sudo wings diagnostics`
-      Panel: `tail -n 150 /var/www/pterodactyl/storage/logs/laravel-$(date +%F).log | nc pteropaste.com 99`
-    placeholder: "https://pteropaste.com/a1h6z"
-    render: bash
-  validations:
-    required: false
-    
 - type: checkboxes
   attributes:
     label: Is there an existing issue for this?
-    description: Please [search here](https://github.com/pterodactyl/panel/issues) to see if an issue already exists for your problem.
+    description: Please [search here](https://github.com/BlueprintFramework/framework/issues) to see if an issue already exists for your problem.
     options:
     - label: I have searched the existing issues before opening this issue.
       required: true
-    - label: I have provided all relevant details, including the specific game and Docker images I am using if this issue is related to running a server.
+    - label: I have provided all relevant details and tested my reproduction steps.
       required: true
-    - label: I have checked in the Discord server and believe this is a bug with the software, and not a configuration issue with my specific system.
+    - label: I have checked to my best capabilities and believe this is a bug with the software, and not a configuration issue with my specific system.
+      required: true
+    - label: I have made sure to check that this bug is the fault of Blueprint and is not caused by stock Pterodactyl.
       required: true

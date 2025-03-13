@@ -16,6 +16,8 @@ import { SocketEvent, SocketRequest } from '@/components/server/events';
 import classNames from 'classnames';
 import { ChevronDoubleRightIcon } from '@heroicons/react/solid';
 
+import CommandRow from '@/blueprint/components/Server/Terminal/CommandRow';
+
 import 'xterm/css/xterm.css';
 import styles from './style.module.css';
 
@@ -202,7 +204,7 @@ export default () => {
                 </div>
             </div>
             {canSendCommands && (
-                <div className={classNames('relative', styles.overflows_container)}>
+                <div className={classNames('relative flex', styles.overflows_container)}>
                     <input
                         className={classNames('peer', styles.command_input)}
                         type={'text'}
@@ -221,6 +223,7 @@ export default () => {
                     >
                         <ChevronDoubleRightIcon className={'w-4 h-4'} />
                     </div>
+                    <CommandRow />
                 </div>
             )}
         </div>

@@ -1,3 +1,6 @@
+@include("blueprint.admin.admin")
+@yield('blueprint.lib')
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,8 +37,11 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
         @show
+
+        @yield("blueprint.import")
     </head>
     <body class="hold-transition skin-blue fixed sidebar-mini">
+        @yield('blueprint.cache')
         <div class="wrapper">
             <header class="main-header">
                 <a href="{{ route('index') }}" class="logo">
@@ -56,6 +62,7 @@
                                     <span class="hidden-xs">{{ Auth::user()->name_first }} {{ Auth::user()->name_last }}</span>
                                 </a>
                             </li>
+                            @yield("blueprint.navigation")
                             <li>
                                 <li><a href="{{ route('index') }}" data-toggle="tooltip" data-placement="bottom" title="Exit Admin Control"><i class="fa fa-server"></i></a></li>
                             </li>
@@ -86,6 +93,7 @@
                             </a>
                         </li>
                         <li class="header">MANAGEMENT</li>
+                        @yield("blueprint.sidenav")
                         <li class="{{ ! starts_with(Route::currentRouteName(), 'admin.databases') ?: 'active' }}">
                             <a href="{{ route('admin.databases') }}">
                                 <i class="fa fa-database"></i> <span>Databases</span>
@@ -159,7 +167,10 @@
                     <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> {{ $appVersion }}<br />
                     <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
                 </div>
-                Copyright &copy; 2015 - {{ date('Y') }} <a href="https://pterodactyl.io/">Pterodactyl Software</a>.
+                <a href="https://pterodactyl.io/">Pterodactyl Software</a> &copy; 2015 - {{ date('Y') }} 
+                @if(starts_with(Route::currentRouteName(), 'admin.extensions'))
+                    • <a href="https://blueprint.zip/">Blueprint</a> &copy; 2023 - {{ date('Y') }}
+                @endif
             </footer>
         </div>
         @section('footer-scripts')
@@ -210,5 +221,7 @@
                 })
             </script>
         @show
+        @yield('blueprint.notifications')
+        @yield('blueprint.wrappers')
     </body>
 </html>
